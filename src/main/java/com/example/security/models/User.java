@@ -14,9 +14,6 @@ public class User {
     private String password;
     private boolean enabled;
 
-    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL)
-    private List<Authority> authority;
-
     public Long getId() {
         return id;
     }
@@ -47,13 +44,5 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public List<Authority> getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(List<Authority> authority) {
-        this.authority = authority;
     }
 }
