@@ -22,9 +22,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String authoritiesByUsernameQuery = "select username,role from users where username = ?";
-    private final String usersByUsernameQuery = "select username,password,enabled from users where username = ?";
-
     @Autowired
     DataSource dataSource;
 
@@ -35,9 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(usersByUsernameQuery)
-                .authoritiesByUsernameQuery(authoritiesByUsernameQuery);
+                .dataSource(dataSource);
                 //.withDefaultSchema();
     }
 
@@ -53,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN","STUDENT")
+                .antMatchers("/user").hasAnyRole("ADMIN","USER")
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/").permitAll()
                 .and()
