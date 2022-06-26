@@ -1,26 +1,19 @@
 package com.example.security.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String username;
     private String password;
     private boolean enabled;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role",referencedColumnName = "role",nullable = false)
+    private Role role;
 
     public String getUsername() {
         return username;
@@ -44,5 +37,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
