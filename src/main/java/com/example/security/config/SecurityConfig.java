@@ -15,16 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final String authoritiesByUsernameQuery = "select username,role from users where username = ?";
-    private final String usersByUsernameQuery = "select username,password,enabled from users where username = ?";
-
-    @Autowired
-    DataSource dataSource;
 
     @Autowired
     UserDetailsService userDetailsService;
